@@ -29,3 +29,11 @@ deploy:
   script: bash ./deploy.sh
   on:
     branch: master
+
+notifications:
+  email:
+    recipients:
+      - f74092120@gs.ncku.edu.tw 
+      - yehchanshen@gmail.com
+    on_success: always 
+    on_failure: always 
