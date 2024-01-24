@@ -17,3 +17,9 @@ spec:
           image: will518/course-platform
           ports:
             - containerPort: 3000
+          env:
+            - name: REACT_APP_CLERK_PUBLISHABLE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: clerk-secret
+                  key: REACT_APP_CLERK_PUBLISHABLE_KEY
