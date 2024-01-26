@@ -21,8 +21,8 @@ import MyCoursesPage from "./screens/mycourses";
 import SpecificCategoryPage from "./comps/SpecificCategoryPage";
 import AccountPage from "./screens/oauth";
 import * as fire_base from "firebase";
-import ProtectedRoute from "./comps/ProtectedRoute";
-import SignInPage from "./comps/SignInPage";
+import ProtectedRoute from './comps/ProtectedRoute';
+import SignInPage from './comps/SignInPage';
 global.firebase = fire_base;
 global.fire = {
   ID: null,
