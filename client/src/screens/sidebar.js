@@ -75,7 +75,7 @@ function Sidebar(){
                 </div>
                 </React.Fragment>
                 : 
-                <NavLink to={"oauth"} className={"aic link noul flex c333"}>
+                <NavLink to={"login"} className={"aic link noul flex c333"}>
                     <div className={"ico s24 rel cfff icon-portrait-male"} />
                     <h2 className="lbl s20 fontb">Sign in</h2>
                 </NavLink>
