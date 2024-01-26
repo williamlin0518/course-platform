@@ -6,7 +6,8 @@ import "./css/uifont.css";
 import "./css/props.css";
 import "./css/App.css";
 
-import { Route, NavLink, HashRouter } from "react-router-dom";
+import { Route, NavLink, HashRouter, Switch } from "react-router-dom";
+
 
 //Screen
 import Header from "./screens/header";
@@ -17,11 +18,11 @@ import CoursePage from "./screens/course";
 import DiscoverPage from "./screens/discover";
 import CategoriesPage from "./screens/categories";
 import MyCoursesPage from "./screens/mycourses";
-
+import SpecificCategoryPage from "./comps/SpecificCategoryPage";
 import AccountPage from "./screens/oauth";
 import * as fire_base from "firebase";
-import ProtectedRoute from "./comps/ProtectedRoute";
-import SignInPage from "./comps/SignInPage";
+import ProtectedRoute from './comps/ProtectedRoute';
+import SignInPage from './comps/SignInPage';
 global.firebase = fire_base;
 global.fire = {
   ID: null,
@@ -72,24 +73,28 @@ export default function AppLoader() {
 
   return (
     <AppContext.Consumer>
-      {(context) => {
+      {context => {
         return context.appLoaded() ? (
           <div className="App flex">
             <HashRouter>
               <Sidebar />
               <div className="app-content">
-                <Route exact path="/" component={HomePage} />
-                <Route exact path="/login" component={SignInPage} />
-                <Route path="/course/:courseid" component={CoursePage} />
-                <ProtectedRoute path="/discover" component={DiscoverPage} />
-                <Route path="/cates" component={CategoriesPage} />
-                <Route path="/my-courses" component={MyCoursesPage} />
+                <Switch>
+                  <Route exact path="/" component={HomePage} />
+                  <Route exact path="/login" component={SignInPage} />
+                  <Route path="/course/:courseId" component={CoursePage} />
+                  <ProtectedRoute path="/discover" component={DiscoverPage} />
+                  <Route path="/cates/:label" component={SpecificCategoryPage} />
+                  <Route path="/cates" exact component={CategoriesPage} />
+                  <Route path="/my-courses" component={MyCoursesPage} />
+                  
+                </Switch>
               </div>
             </HashRouter>
           </div>
         ) : (
           <AppContext.Consumer>
-            {(context) => {
+            {context => {
               loadApp(context);
               return splash(context);
             }}
@@ -98,4 +103,5 @@ export default function AppLoader() {
       }}
     </AppContext.Consumer>
   );
+
 }
