@@ -6,7 +6,8 @@ import "./css/uifont.css";
 import "./css/props.css";
 import "./css/App.css";
 
-import { Route, NavLink, HashRouter } from "react-router-dom";
+import { Route, NavLink, HashRouter, Switch } from "react-router-dom";
+
 
 //Screen
 import Header from "./screens/header";
@@ -17,7 +18,7 @@ import CoursePage from "./screens/course";
 import DiscoverPage from "./screens/discover";
 import CategoriesPage from "./screens/categories";
 import MyCoursesPage from "./screens/mycourses";
-
+import SpecificCategoryPage from "./comps/SpecificCategoryPage";
 import AccountPage from "./screens/oauth";
 import * as fire_base from "firebase";
 import ProtectedRoute from './comps/ProtectedRoute';
@@ -70,38 +71,37 @@ export default function AppLoader() {
     await initFirebase(context);
   };
 
-    return (
-        <AppContext.Consumer>
-            {
-                context => {
-                    return (
-                        context.appLoaded() ? 
-                        <div className="App flex">      
-                            <HashRouter>
-                                <Sidebar />
-                                <div className="app-content">
-                                    <Route exact path="/" component={HomePage} />
-                                    <Route exact path="/login" component={SignInPage} />
-                                    <Route path="/course/:courseid" component={CoursePage} />
-                                    <ProtectedRoute path="/discover" component={DiscoverPage} />
-                                    <Route path="/cates" component={CategoriesPage} />
-                                    <Route path="/my-courses" component={MyCoursesPage} />
-                                </div>    
-                            </HashRouter>    
-                        </div>
-                        : 
-                        <AppContext.Consumer>
-                            {
-                                context => {
-                                    loadApp(context);
-                                    return (splash(context))
-                                }
-                            }
-                        </AppContext.Consumer>
-                    )
-                }
-            }
-        </AppContext.Consumer>
-    )
+  return (
+    <AppContext.Consumer>
+      {context => {
+        return context.appLoaded() ? (
+          <div className="App flex">
+            <HashRouter>
+              <Sidebar />
+              <div className="app-content">
+                <Switch>
+                  <Route exact path="/" component={HomePage} />
+                  <Route exact path="/login" component={SignInPage} />
+                  <Route path="/course/:courseid" component={CoursePage} />
+                  <ProtectedRoute path="/discover" component={DiscoverPage} />
+                  <Route path="/cates/:label" component={SpecificCategoryPage} />
+                  <Route path="/cates" exact component={CategoriesPage} />
+                  <Route path="/my-courses" component={MyCoursesPage} />
+                  
+                </Switch>
+              </div>
+            </HashRouter>
+          </div>
+        ) : (
+          <AppContext.Consumer>
+            {context => {
+              loadApp(context);
+              return splash(context);
+            }}
+          </AppContext.Consumer>
+        );
+      }}
+    </AppContext.Consumer>
+  );
 
 }
