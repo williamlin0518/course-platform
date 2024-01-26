@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../ui/Tsmc.svg.png";
 
 import { NavLink } from "react-router-dom";
+import { useUser, useClerk } from "@clerk/clerk-react"; // Import useClerk
 
 function Sidebar() {
   const [nav, setNav] = useState([
@@ -11,6 +12,21 @@ function Sidebar() {
     { label: "My Courses", slug: "my-courses", icon: "icon-briefcase" },
   ]);
   const [currentPage, setCurrentPage] = useState("/");
+  const { isSignedIn, user } = useUser();
+  const { signOut } = useClerk();
+  
+  const [initiateSignOut, setInitiateSignOut] = useState(false);
+  useEffect(() => {
+    const performSignOut = async () => {
+      if (initiateSignOut) {
+        await signOut();
+        setInitiateSignOut(false);
+      }
+    };
+
+    performSignOut();
+  }, [initiateSignOut, signOut]);
+
 
   var navigation = [];
   for (let i = 0; i < nav.length; i++) {
@@ -38,10 +54,23 @@ function Sidebar() {
       <ul className="nav">{navigation}</ul>
 
       <div className="me flex aic">
-        <NavLink to={"oauth"} className={"aic link noul flex c333"}>
-          <div className={"ico s24 rel cfff icon-portrait-male"} />
-          <h2 className="lbl s20 fontb">Sign in</h2>
-        </NavLink>
+        {isSignedIn ? (
+          // Display "Log out" if user is signed in
+          <NavLink
+            to={"/"}
+            onClick={() => setInitiateSignOut(true)}
+            className={"aic link noul flex c333"}
+          >
+            <div className={"ico s24 rel cfff icon-portrait-male"} />
+            <h2 className="lbl s20 fontb">Log out</h2>
+          </NavLink>
+        ) : (
+          // Display "Sign in" if user is not signed in
+          <NavLink to={"login"} className={"aic link noul flex c333"}>
+            <div className={"ico s24 rel cfff icon-portrait-male"} />
+            <h2 className="lbl s20 fontb">Sign in</h2>
+          </NavLink>
+        )}
       </div>
     </div>
   );
