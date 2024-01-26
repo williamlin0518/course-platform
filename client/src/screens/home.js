@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useUser } from "@clerk/clerk-react";
+import logo from "../ui/course-1.png";
+import LeftIcon from "@mui/icons-material/ChevronLeftRounded";
+import RightIcon from "@mui/icons-material/ChevronRightRounded";
 
 function HomePage() {
   const { isSignedIn, user, isLoaded } = useUser();
@@ -46,24 +49,13 @@ function HomePage() {
     // }
   }, []);
 
-    const popularCourseArray = popularCourse.map((course) => (
-      // TODO: map course to html
-      <div className="courseCard">
-        <img src={course.img_src} />
-        <div className="courseContainer" style={{backgroundColor: "White"}}>
-          <h2>
-            <b>{course.title}</b>
-          </h2>
-          <p>{course.headline}</p>
-        </div>
-        <div className="courseContainer">
-          <p>Course Instructor: {course.instructor_str}</p>
-          <p className="rating">Rating: {course.rating} / 5.0</p>
-          <p>Enrollment: {course.enrollment}</p>
-          <p>Language: {course.language}</p>
-        </div>
-      </div>
-    ));
+  const popularCourseArray = popularCourse.map((course) => (
+    // TODO: map course to html
+    <div className="card">
+      <img src={logo} alt="test" />
+      <h1>{course.title}</h1>
+    </div>
+  ));
   //   const recommendationCourseArray = [];
   //   if (isSignedIn) {
   //     recommendationCourseArray = recommendationCourse.map((course) => (
@@ -72,41 +64,36 @@ function HomePage() {
   //     ));
   //   }
 
-    if (isSignedIn) {
-      return (
-        <div className="home-page rel">
-          <div className="section section-b rel">
-            <h2 className="title s24 fontb">
-              Popular <span className="fontn">This Week</span>
-            </h2>
-            <div className="scroll-container">{popularCourseArray}</div>
-          </div>
-
-          {/* <div className="section section-b rel">
-              <h2 className="title s24 fontb">
-                Recommendation <span className="fontn">For You</span>
-              </h2>
-              <div class="scroll-container">{recommendationCourseArray}</div>
-            </div> */}
-        </div>
-      );
-    }
+  if (isSignedIn) {
     return (
       <div className="home-page rel">
         <div className="section section-b rel">
           <h2 className="title s24 fontb">
             Popular <span className="fontn">This Week</span>
           </h2>
-          <div className="scroll-container">{popularCourseArray}</div>
+          {/* TODO: display popular here */}
         </div>
-        {/* TODO: show things when not signed in */}
+
+        {/* <div className="section section-b rel">
+              <h2 className="title s24 fontb">
+                Recommendation <span className="fontn">For You</span>
+              </h2>
+              <div class="scroll-container">{recommendationCourseArray}</div>
+            </div> */}
       </div>
     );
-//   return (
-//     <div className="app-page rel">
-//       <h1 className="page-title s24 fontb c333">Discover</h1>
-//     </div>
-//   );
+  }
+  return (
+    <div className="home-page rel">
+      <div className="section section-b rel">
+        <h2 className="title s24 fontb">
+          Popular <span className="fontn">This Week</span>
+        </h2>
+        {/* TODO: display popular here */}
+      </div>
+      {/* TODO: show things when not signed in */}
+    </div>
+  );
 }
 
 export default HomePage;
