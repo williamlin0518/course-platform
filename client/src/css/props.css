@@ -37,6 +37,24 @@ select, textarea, input{
 
 .ibl{display: inline-block;}
 .bl{display: block;}
+.blLogo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.logoText{
+    flex: 1;
+}
+.logoImg{
+    flex: 0 0 auto;
+    margin-right: 20px;
+}
+.cont {
+    display: flex;
+    align-items: center;
+}
 
 .cfff{color: #fff;}
 .c333{color: #333;}

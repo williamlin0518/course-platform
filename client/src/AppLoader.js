@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import AppContext from "./AppContext";
 import logo from "./ui/logo-coral.svg";
 
@@ -6,11 +6,7 @@ import "./css/uifont.css";
 import "./css/props.css";
 import "./css/App.css";
 
-import {
-    Route,
-    NavLink,
-    HashRouter
-} from "react-router-dom";
+import { Route, NavLink, HashRouter } from "react-router-dom";
 
 //Screen
 import Header from "./screens/header";
@@ -28,7 +24,7 @@ import ProtectedRoute from './comps/ProtectedRoute';
 import SignInPage from './comps/SignInPage';
 global.firebase = fire_base;
 global.fire = {
-    ID: null
+  ID: null,
 };
 var firebaseConfig = {
   apiKey: "YOUR_API_KEY",
@@ -37,45 +33,42 @@ var firebaseConfig = {
   projectId: "YOUR_PROJECT_ID",
   storageBucket: "YOUR_STORAGE_BUCKET",
   messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  appId: "YOUR_APP_ID",
 };
 // Initialize Firebase
 global.firebase.initializeApp(firebaseConfig);
 
+export default function AppLoader() {
+  const [isFireUser, setIsFireUser] = useState(false);
 
+  const initFirebase = async (context) => {
+    global.firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log("You are signed in...");
+        setIsFireUser(true);
+      } else {
+        console.log("You are guest...");
+        setIsFireUser(false);
+        setTimeout(() => {
+          context.setAppLoaded(true);
+        }, 500);
+      }
+    });
+  };
 
-export default function AppLoader(){
+  const splash = (context) => {
+    return (
+      <div className="App flex">
+        <div className="splash abs abc">
+          <img src={logo} className="bl" />
+        </div>
+      </div>
+    );
+  };
 
-    const [isFireUser, setIsFireUser] = useState(false);
-
-    const initFirebase = async (context) => {
-        global.firebase.auth().onAuthStateChanged((user)=>{
-          if(user){
-              console.log("You are signed in...")
-              setIsFireUser(true);
-          }else{
-            console.log("You are guest...");
-            setIsFireUser(false);
-            setTimeout(()=>{
-                context.setAppLoaded(true);
-            }, 500);
-          }
-        });
-    }
-
-    const splash = (context) => {
-        return (
-            <div className="App flex">      
-                <div className="splash abs abc">
-                    <img src={logo} className="bl" />
-                </div>
-            </div>
-        )
-    }
-
-    const loadApp = async (context) => {
-        await initFirebase(context);
-    }
+  const loadApp = async (context) => {
+    await initFirebase(context);
+  };
 
     return (
         <AppContext.Consumer>
