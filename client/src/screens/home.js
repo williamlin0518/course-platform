@@ -11,51 +11,15 @@ import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-
+import { useAuth } from '@clerk/clerk-react';
 function HomePage() {
   const { isSignedIn, user, isLoaded } = useUser();
   const [popularCourse, setPopularCourse] = useState([]);
   const [recommendationCourse, setRecommendationCourse] = useState(null);
   const [hoveredCard, setHoveredCard] = useState(null);
+  const { getToken } = useAuth();
 ;
-  //   document.title = "Home Page";
-
-  //   const fetchPopularCourse = async () => {
-  //     await fetch("http://34.146.84.112/api/", { method: "GET" })
-  //       .then((response) => {
-  //         if (response.ok) {
-  //           return response.json();
-  //         }
-  //       })
-  //       .then((jsonData) => {
-  //         setPopularCourse(jsonData.course);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error fetching data:", error);
-  //       });
-  //   };
-
-    // const fetchRecommendationCourse = async () => {
-    //   await fetch("https://www.google.com.tw/?hl=zh-TW")
-    //     .then((response) => {
-    //       if (response.ok) {
-    //         return response.json();
-    //       }
-    //     })
-    //     .then((jsonData) => {
-    //       // TODO: set data to array
-    //       setRecommendationCourse(jsonData);
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error fetching data:", error);
-    //     });
-    // };
-
-  //   fetchPopularCourse();
-  //   // if (isSignedIn) {
-  //   //   fetchRecommendationCourse();
-  //   // }
-  // }, []);
+  
   const fetchPopularCourse = async () => {
     try {
       const response = await fetch("http://34.146.84.112/api/", { method: "GET" });
@@ -69,11 +33,36 @@ function HomePage() {
       console.error("Error fetching popular courses:", error);
     }
   };
+
+  const postTokenToBackend = async () => {
+    if (isSignedIn) {
+      try {
+        const token = await getToken();
+        const response = await fetch("http://34.146.84.112/api/user", {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ token })
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("Response data:", data);
+      } catch (error) {
+        console.error("Error posting token to backend:", error);
+      }
+    }
+  };
   
   useEffect(() => {
     document.title = "Home Page";
     fetchPopularCourse();
-  }, []);
+    postTokenToBackend();
+  }, [isSignedIn]); 
 
   const popularCourseArray = popularCourse.slice(0, 16).map((course, index) => {
     const isHovered = hoveredCard === index;
