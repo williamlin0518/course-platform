@@ -706,3 +706,75 @@ OAUTH VIEW
 .oauth-view .__phonesigner__ {
   margin: 10px 0px 20px 0px;
 }
+
+.chat-room {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensure chat room takes full height */
+}
+
+.chat-room-title {
+  margin: 10px 0; /* Add margin to the title */
+}
+
+.messages-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.message {
+  max-width: 70%;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  word-wrap: break-word; /* Wrap long words */
+}
+
+.sent {
+  align-self: flex-end;
+  background-color: #007bff;
+  color: white;
+}
+
+.received {
+  align-self: flex-start;
+  background-color: #f0f0f0;
+  color: black;
+}
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.message-input {
+  flex: 1;
+  margin-right: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.send-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.send-button:hover {
+  background-color: #0056b3;
+}
+
+.chat-room-title {
+  text-align: left;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 15px;
+}
