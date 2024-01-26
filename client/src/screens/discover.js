@@ -14,7 +14,7 @@ function DiscoverPage() {
 
     const handleSearch = async (searchTerm) => {
         try {
-            const response = await fetch(`http://localhost:5000/search/${encodeURIComponent(searchTerm)}`);
+            const response = await fetch(`http://34.146.84.112/api/search/${encodeURIComponent(searchTerm)}`);
             const data = await response.json();
             setSearchResults(data);
         } catch (error) {

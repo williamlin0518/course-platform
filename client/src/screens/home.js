@@ -13,7 +13,7 @@ function HomePage() {
     document.title = "Home Page";
 
     const fetchPopularCourse = async () => {
-      await fetch("http://localhost:3002", { method: "GET" })
+      await fetch("http://34.146.84.112/api/", { method: "GET" })
         .then((response) => {
           if (response.ok) {
             return response.json();
