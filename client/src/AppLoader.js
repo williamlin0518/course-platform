@@ -82,7 +82,7 @@ export default function AppLoader() {
                 <Switch>
                   <Route exact path="/" component={HomePage} />
                   <Route exact path="/login" component={SignInPage} />
-                  <Route path="/course/:courseid" component={CoursePage} />
+                  <Route path="/course/:courseId" component={CoursePage} />
                   <ProtectedRoute path="/discover" component={DiscoverPage} />
                   <Route path="/cates/:label" component={SpecificCategoryPage} />
                   <Route path="/cates" exact component={CategoriesPage} />
