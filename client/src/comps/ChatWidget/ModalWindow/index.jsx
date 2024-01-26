@@ -1,4 +1,6 @@
 import { styles } from "./../styles";
+import React from "react";
+import ChatRoom from "./chatRoom";
 function ModalWindow(props) {
   return (
     <div
@@ -7,7 +9,7 @@ function ModalWindow(props) {
         ...{ opacity: props.visible ? "1" : "0" },
       }}
     >
-      Hello there!
+      <ChatRoom />
     </div>
   );
 }
