@@ -49,7 +49,7 @@ function SpecificCategoryPage() {
 
     return (
       <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-        <Link to={`/course/${course.cid}`} style={{ textDecoration: "none" }}>
+        <Link to={`/course/${course.ID}`} style={{ textDecoration: "none" }}>
           <Card
             style={cardStyle}
             onMouseEnter={() => setHoveredCard(index)}
