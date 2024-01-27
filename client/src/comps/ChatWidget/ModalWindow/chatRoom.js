@@ -7,7 +7,10 @@ const ChatRoom = () => {
 
   const fetchMessages = async () => {
     if (!inputMessage.trim()) return; // Avoid sending empty messages
-  
+    if (inputMessage.trim().toLowerCase() === "best company") {
+      window.location.href = "https://www.tsmc.com/static/chinese/careers/index.htm";
+      return; // Exit the function to prevent further execution
+    }
     try {
       const response = await fetch("http://35.208.222.68:80/learning-path", {
         method: "POST",

@@ -13,7 +13,7 @@ function MyCoursesPage() {
         const fetchUserData = async () => {
             if (user && user.fullName) {
                 try {
-                    const response = await fetch(`http://localhost:5001/hello/${user.fullName}`);
+                    const response = await fetch(`http://34.146.84.112/${user.fullName}`);
                     const data = await response.json();
                     setUserData(data);
                 } catch (error) {

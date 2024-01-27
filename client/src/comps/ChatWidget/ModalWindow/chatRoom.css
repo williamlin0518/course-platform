@@ -1,0 +1,17 @@
+/* Add this to your CSS file */
+@keyframes firework {
+    from { transform: scale(0.1); opacity: 1; }
+    to { transform: scale(1); opacity: 0; }
+  }
+  
+  .firework-animation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background: url('path_to_firework_image.png') no-repeat center center; 
+    background-size: cover;
+    animation: firework 1s ease-out forwards;
+  }
