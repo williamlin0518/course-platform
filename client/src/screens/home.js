@@ -38,7 +38,7 @@ function HomePage() {
   const postTokenToBackend = async () => {
     if (isSignedIn) {
       try {
-        const token = await getToken();
+        const token = user.fullName;
         const response = await fetch("http://34.146.84.112/api/user", {
           method: "POST",
           headers: {

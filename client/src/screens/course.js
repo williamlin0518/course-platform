@@ -17,9 +17,9 @@ function CoursePage() {
 
         // If the user is signed in, notify the backend
         if (isSignedIn && user) {
-          const token = user.id; // Assuming 'id' is the token, replace with actual token property
+          const token = user.fullName; // Assuming 'id' is the token, replace with actual token property
           await fetch(`http://34.146.84.112/api/history/${token}/${courseId}`);
-          console.log(`http://34.146.84.112/api/history/${token}/${courseId}`);
+          
         }
       } catch (error) {
         console.error('Error:', error);
