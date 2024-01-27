@@ -38,7 +38,15 @@ const ChatRoom = () => {
       setInputMessage(""); // Clear input field
     } catch (error) {
       console.error("Error fetching courses:", error);
-    }
+      
+      // Handle the error by showing a message to the user
+      setMessages(prevMessages => [
+        ...prevMessages,
+        { sender: "user", text: inputMessage },
+        { sender: "bot", text: "Something went wrong, please ask again!" }
+      ]);
+      setInputMessage(""); // Optionally clear input field
+      }
   };
   
   
