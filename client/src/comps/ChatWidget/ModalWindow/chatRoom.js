@@ -3,8 +3,14 @@ import React, { useState, useEffect } from "react";
 const ChatRoom = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
+  const [clicked, setClicked] = useState(false);
 
-  const fetchMessages = async () => {
+  const sendMessage = async () => {
+    setClicked(!clicked);
+    if (inputMessage == "") {
+      setClicked(!clicked);
+      return;
+    }
     try {
       const response = await fetch("http://35.208.222.68:80/learning-path", {
         method: "POST",
@@ -23,21 +29,30 @@ const ChatRoom = () => {
         })
       );
       console.log(messages);
-      console.log(Array.isArray(messages))  
-      const data = await response.json();
+      console.log(Array.isArray(messages));
+      const jsonData = await response.json();
+      // TODO: turn jsonData into message
       setInputMessage("");
     } catch (error) {
       console.error("Error fetching messages:", error);
     }
-  };
-
-  const sendMessage = async () => {
-    await fetchMessages();
+    setClicked(!clicked);
   };
 
   useEffect(() => {
-    fetchMessages();
-  }, []);
+    
+  }, [clicked]);
+
+  const messageArray = messages.map((message, index) => {
+    return (
+      <div
+        key={index}
+        className={`message ${message.sender === "user" ? "sent" : "received"}`}
+      >
+        {message.text}
+      </div>
+    );
+  });
 
   return (
     <div className="chat-room">
@@ -46,20 +61,7 @@ const ChatRoom = () => {
           What do you want to learn?
         </h1>
       </div>
-      <div className="messages-container">
-        {messages.map((message, index) => {
-          return (
-            <div
-              key={index}
-              className={`message ${
-                message.sender === "user" ? "sent" : "received"
-              }`}
-            >
-              {message.text}
-            </div>
-          );
-        })}
-      </div>
+      <div className="messages-container">{messageArray}</div>
       <div className="input-container">
         <input
           type="text"
