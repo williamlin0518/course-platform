@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 const ChatRoom = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
+  const [clicked, setClicked] = useState(false);
 
   const fetchMessages = async () => {
     if (!inputMessage.trim()) return; // Avoid sending empty messages
