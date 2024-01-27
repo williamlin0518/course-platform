@@ -1,6 +1,6 @@
 import React from "react";
 import AppContext from "./AppContext";
-import logo from "./ui/logo-coral.svg";
+import logo from "./ui/tsmc.svg";
 
 import "./css/uifont.css";
 import "./css/props.css";

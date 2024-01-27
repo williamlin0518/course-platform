@@ -8,8 +8,6 @@ import Typography from "@mui/material/Typography";
 import StarIcon from "@mui/icons-material/Star";
 import PeopleIcon from "@mui/icons-material/People";
 import { Link } from "react-router-dom";
-import Box from "@mui/material/Box";
-import { styled } from "@mui/material/styles";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { useAuth } from "@clerk/clerk-react";
 function HomePage() {
